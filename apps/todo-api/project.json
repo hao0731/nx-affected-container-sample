@@ -13,7 +13,8 @@
         "outputPath": "dist/apps/todo-api",
         "main": "apps/todo-api/src/main.ts",
         "tsConfig": "apps/todo-api/tsconfig.app.json",
-        "assets": ["apps/todo-api/src/assets"]
+        "assets": ["apps/todo-api/src/assets"],
+        "generatePackageJson": true
       },
       "configurations": {
         "production": {
@@ -70,6 +71,16 @@
             "type=sha,prefix=sha-"
           ]
         }
+      },
+      "dependsOn": [
+        { "projects": "self", "target": "build" },
+        { "projects": "self", "target": "build-ui" }
+      ]
+    },
+    "build-ui": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx nx build todo-ui --configuration production"
       }
     }
   },
